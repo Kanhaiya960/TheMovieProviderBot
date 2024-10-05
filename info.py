@@ -13,9 +13,9 @@ def is_enabled(value, default):
 
 # Bot information
 SESSION = environ.get('SESSION', 'Media_search')
-API_ID = int(environ.get('API_ID', '27116256'))
+API_ID = int(environ.get('API_ID', ''))
 API_HASH = environ.get('API_HASH', '89669f3ecf7d5257926a50701371100b')
-BOT_TOKEN = environ.get('BOT_TOKEN', "7551182383:AAGR9rgSiYltmyLBCgT1RjabIc0S_-Ym3qw")
+BOT_TOKEN = environ.get('BOT_TOKEN', "")
 
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -50,7 +50,7 @@ SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(
 NO_RESULTS_MSG = bool(environ.get("NO_RESULTS_MSG", False)) # True if you want no results messages in Log Channel
 
 # MongoDB information
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://trumbot:trumbot@cluster0.cfkaeno.mongodb.net/?retryWrites=true&w=majority")
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://Peter:Peter@cluster0.seo6hkq.mongodb.net/?retryWrites=true&w=majority")
 DATABASE_NAME = environ.get('DATABASE_NAME', "tomandjerry")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
