@@ -1486,17 +1486,17 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton('📌 new movies ᴜᴘᴅᴀᴛᴇꜱ 📌', url='https://t.me/marvelsbackups')
                 ]]
             else:
-                await query.answer("🚸 ɴᴏᴛᴇ :\nᴀᴅ-ꜰʀᴇᴇ ꜱᴇʀᴠɪᴄᴇ ɪꜱ ᴏɴʟʏ ꜰᴏʀ ᴘʀᴇᴍɪᴜᴍ ᴜꜱᴇʀꜱ.\n\nᴛᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ ᴄʜᴇᴄᴋ ᴘʟᴀɴꜱ.", show_alert=False)
                 await query.message.reply_text(
-                text="<b>‼️ ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ☠︎⚔</b>",
+                text="‼️ ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ☠︎⚔",
                 quote=True,
                 disable_web_page_preview=True,                  
-                reply_markup=InlineKeyboardMarkup[[InlineKeyboardButton("🚀 ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ", url=lazy_download),
-                    InlineKeyboardButton("ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ 🧿", url=lazy_stream)
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🚀 ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ", url=lazy_download),
+                                                   InlineKeyboardButton("ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ 🧿", url=lazy_stream)
                 ],[
-                    InlineKeyboardButton('📌 new movies ᴜᴘᴅᴀᴛᴇꜱ 📌', url='https://t.me/marvelsbackups')
+                             InlineKeyboardButton('📌 new movies ᴜᴘᴅᴀᴛᴇꜱ 📌', url='https://t.me/marvelsbackups')
                 ]])
-    
+                )
+                    
             query.message.reply_markup = query.message.reply_markup or []
             query.message.reply_markup.inline_keyboard.pop(0)
             query.message.reply_markup.inline_keyboard.insert(0, buttons)
