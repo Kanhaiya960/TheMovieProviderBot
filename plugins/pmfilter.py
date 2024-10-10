@@ -1486,6 +1486,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton('📌 new movies ᴜᴘᴅᴀᴛᴇꜱ 📌', url='https://t.me/marvelsbackups')
                 ]]
             else:
+                await query.answer("🚸 ɴᴏᴛᴇ :\nᴀᴅ-ꜰʀᴇᴇ ꜱᴇʀᴠɪᴄᴇ ɪꜱ ᴏɴʟʏ ꜰᴏʀ ᴘʀᴇᴍɪᴜᴍ ᴜꜱᴇʀꜱ.\n\nᴛᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ ᴄʜᴇᴄᴋ ᴘʟᴀɴꜱ.", show_alert=False)
                 await query.message.reply_text(
                 text="‼️ ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ☠︎⚔",
                 quote=True,
