@@ -2359,7 +2359,7 @@ async def advantage_spell_chok(client, msg):
         btn.append([InlineKeyboardButton(text="↭ ᴄʟᴏꜱᴇ ↭", callback_data=f'spol#{reqstr1}#close_spellcheck')])
         spell_check_del = await msg.reply_text(
             text=script.CUDNT_FND.format(mv_rqst),
-            reply_markup=InlineKeyboardMarkup(button)
+            reply_markup=InlineKeyboardMarkup(btn)
         )
         try:
             if settings['auto_delete']:
