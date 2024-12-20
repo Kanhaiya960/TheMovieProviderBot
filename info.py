@@ -55,8 +55,8 @@ DATABASE_NAME = environ.get('DATABASE_NAME', "")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 # Verify
-VERIFY = bool(environ.get('VERIFY', False)) # Verification On ( True ) / Off ( False )
-HOWTOVERIFY = environ.get('HOWTOVERIFY', url='https://t.me/Movies_4_Download') # How to open tutorial link for verification
+VERIFY = bool(environ.get('VERIFY', False)) # Verification On ( True ) / Off ( False )HOWTOVERIFY = environ.get('HOWTOVERIFY', 'https://t.me/Movies_4_Download')
+HOWTOVERIFY = environ.get('HOWTOVERIFY', 'https://t.me/Movies_4_Download') # How to open tutorial link for verification
 
 # Others
 SHORTLINK_URL = environ.get('SHORTLINK_URL', 'instantearn.in')
