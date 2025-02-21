@@ -1,12 +1,14 @@
 # https://github.com/odysseusmax/animated-lamp/blob/master/bot/database/database.py
+# Database Handling for The Movie Provider Bot
 import motor.motor_asyncio
+import asyncio
+import datetime
+import pytz
 from info import (
     DATABASE_NAME, DATABASE_URI, IMDB, IMDB_TEMPLATE, MELCOW_NEW_USERS,
     P_TTI_SHOW_OFF, SINGLE_BUTTON, SPELL_CHECK_REPLY, PROTECT_CONTENT, AUTO_DELETE,
     MAX_BTN, AUTO_FFILTER, SHORTLINK_API, SHORTLINK_URL, IS_SHORTLINK, TUTORIAL, IS_TUTORIAL
 )
-import datetime
-import pytz
 
 class Database:
     
@@ -90,15 +92,13 @@ class Database:
         await self.col.delete_many({'id': int(user_id)})
 
     async def get_banned(self):
-    loop = asyncio.get_running_loop()  # इवेंट लूप को सही तरीके से लोड करें
+        users_cursor = self.col.find({'ban_status.is_banned': True})
+        chats_cursor = self.grp.find({'chat_status.is_disabled': True})
 
-    users_cursor = self.col.find({'ban_status.is_banned': True})
-    chats_cursor = self.grp.find({'chat_status.is_disabled': True})
+        b_users = [user['id'] for user in await users_cursor.to_list(length=None)]
+        b_chats = [chat['id'] for chat in await chats_cursor.to_list(length=None)]
 
-    b_users = await loop.run_in_executor(None, lambda: [user['id'] for user in loop.run_until_complete(users_cursor.to_list(length=None))])
-    b_chats = await loop.run_in_executor(None, lambda: [chat['id'] for chat in loop.run_until_complete(chats_cursor.to_list(length=None))])
-
-    return b_users, b_chats
+        return b_users, b_chats
 
     async def add_chat(self, chat, title):
         chat = self.new_group(chat, title)
@@ -209,4 +209,4 @@ class Database:
         user_data = {"id": user_id, "expiry_time": expiry_time, "has_free_trial": True}
         await self.users.update_one({"id": user_id}, {"$set": user_data}, upsert=True)
 
-db = Database(DATABASE_URI, DATABASE_NAME)
+db = Database(DATABASE_URI, DATABASE_NAME)    
