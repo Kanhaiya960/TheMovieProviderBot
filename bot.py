@@ -97,9 +97,12 @@ async def Lazy_start():
     # Keep bot running
     await idle()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    
     try:
         loop.run_until_complete(Lazy_start())
         loop.run_forever()
     except KeyboardInterrupt:
-        logging.info('❌ Service Stopped. Bye 👋')
+        logging.info("❌ Service Stopped. Bye 👋")
