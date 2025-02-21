@@ -26,14 +26,6 @@ from lazybot.clients import initialize_clients
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
-logging.getLogger("imdbpy").setLevel(logging.ERROR)
-logging.getLogger("aiohttp").setLevel(logging.ERROR)
-logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
 
 # ✅ **Load Plugins**
 ppath = "plugins/*.py"
@@ -43,9 +35,7 @@ files = glob.glob(ppath)
 async def Lazy_start():
     print("\n✅ Initializing The Movie Provider Bot...")
 
-    # ✅ **Start Pyrogram Client**
     await LazyPrincessBot.start()
-    
     bot_info = await LazyPrincessBot.get_me()
     LazyPrincessBot.username = bot_info.username
     await initialize_clients()
@@ -69,7 +59,8 @@ async def Lazy_start():
         return
 
     # ✅ **Fix MongoDB asyncio Issue**
-    b_users, b_chats = await db.get_banned()
+    loop = asyncio.get_event_loop()
+    b_users, b_chats = await loop.run_in_executor(None, lambda: asyncio.run(db.get_banned()))
     temp.BANNED_USERS = b_users
     temp.BANNED_CHATS = b_chats
     await Media.ensure_indexes()
@@ -82,7 +73,6 @@ async def Lazy_start():
     LazyPrincessBot.username = f'@{me.username}'
 
     logging.info(f"🚀 {me.first_name} with Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
-    logging.info(LOG_STR)
     logging.info(script.LOGO)
 
     # ✅ **Log Restart Time**
@@ -103,9 +93,6 @@ async def Lazy_start():
 
 # ✅ **Main Execution**
 if __name__ == "__main__":
-    try:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.run_until_complete(Lazy_start())
-    except KeyboardInterrupt:
-        logging.info("❌ Service Stopped. Bye 👋")
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(Lazy_start())
