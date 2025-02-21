@@ -90,13 +90,12 @@ class Database:
         await self.col.delete_many({'id': int(user_id)})
 
     async def get_banned(self):
-        users = self.col.find({'ban_status.is_banned': True})
-        chats = self.grp.find({'chat_status.is_disabled': True})
-        
-        # FIX: async for हटाकर to_list() का उपयोग किया गया
-        b_chats = [chat['id'] for chat in await chats.to_list(length=None)]
-        b_users = [user['id'] for user in await users.to_list(length=None)]
-        
+        users_cursor = self.col.find({'ban_status.is_banned': True})
+        chats_cursor = self.grp.find({'chat_status.is_disabled': True})
+
+        b_users = [user['id'] for user in await users_cursor.to_list(length=None)]
+        b_chats = [chat['id'] for chat in await chats_cursor.to_list(length=None)]
+
         return b_users, b_chats
 
     async def add_chat(self, chat, title):
