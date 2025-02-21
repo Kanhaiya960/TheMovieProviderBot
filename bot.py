@@ -60,7 +60,7 @@ async def Lazy_start():
 
     # ✅ **Fix MongoDB asyncio Issue**
     loop = asyncio.get_event_loop()
-    b_users, b_chats = await loop.run_in_executor(None, lambda: asyncio.run(db.get_banned()))
+    b_users, b_chats = await db.get_banned()
     temp.BANNED_USERS = b_users
     temp.BANNED_CHATS = b_chats
     await Media.ensure_indexes()
