@@ -100,9 +100,9 @@ async def Lazy_start():
 if __name__ == "__main__":
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    
+
     try:
-        loop.run_until_complete(Lazy_start())
+        loop.create_task(Lazy_start())  # `run_until_complete()` की जगह `create_task()`
         loop.run_forever()
     except KeyboardInterrupt:
         logging.info("❌ Service Stopped. Bye 👋")
