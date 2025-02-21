@@ -30,7 +30,7 @@ logging.getLogger("aiohttp").setLevel(logging.ERROR)
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
 
-# Fix asyncio event loop issue
+# Fix asyncio event loop issue (initial loop creation; यह optional है यदि __main__ में भी नया loop बनाया जाता है)
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 
@@ -88,21 +88,24 @@ async def Lazy_start():
     # Send restart message
     await LazyPrincessBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
 
-    # Start web server
+    # Start web server on port 8080 (HTTP endpoint for health checks)
     app = web.AppRunner(await web_server())
     await app.setup()
     bind_address = "0.0.0.0"
     await web.TCPSite(app, bind_address, 8080).start()
+    print("Web server started on port 8080.")
 
     # Keep bot running
     await idle()
 
 if __name__ == "__main__":
+    # Create and set a new event loop
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 
     try:
-        loop.create_task(Lazy_start())  # `run_until_complete()` की जगह `create_task()`
+        # Start Lazy_start() as a background task and run the loop forever
+        loop.create_task(Lazy_start())
         loop.run_forever()
     except KeyboardInterrupt:
         logging.info("❌ Service Stopped. Bye 👋")
