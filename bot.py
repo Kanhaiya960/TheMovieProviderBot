@@ -11,7 +11,6 @@ from database.ia_filterdb import Media
 from database.users_chats_db import db
 from info import *
 from utils import temp
-from plugins import web_server
 from datetime import date, datetime
 import pytz
 from aiohttp import web
@@ -30,7 +29,7 @@ logging.getLogger("aiohttp").setLevel(logging.ERROR)
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
 
-# Fix asyncio event loop issue (initial loop creation; यह optional है यदि __main__ में भी नया loop बनाया जाता है)
+# Fix asyncio event loop issue
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 
@@ -88,15 +87,21 @@ async def Lazy_start():
     # Send restart message
     await LazyPrincessBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
 
-    # Start web server on port 8080 (HTTP endpoint for health checks)
-    app = web.AppRunner(await web_server())
-    await app.setup()
-    bind_address = "0.0.0.0"
-    await web.TCPSite(app, bind_address, 8080).start()
-    print("Web server started on port 8080.")
-
     # Keep bot running
     await idle()
+
+async def start_web_server():
+    """ Simple Web Server for Koyeb Health Check """
+    async def handle(request):
+        return web.Response(text="Bot is Running!")
+
+    app = web.Application()
+    app.router.add_get("/", handle)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, "0.0.0.0", 8080)
+    await site.start()
+    print("✅ Web server started on port 8080.")
 
 if __name__ == "__main__":
     # Create and set a new event loop
@@ -104,8 +109,13 @@ if __name__ == "__main__":
     asyncio.set_event_loop(loop)
 
     try:
-        # Start Lazy_start() as a background task and run the loop forever
+        # Start Web Server (Koyeb Health Check के लिए)
+        loop.create_task(start_web_server())
+        
+        # Start Telegram Bot
         loop.create_task(Lazy_start())
+
+        # Run the loop forever
         loop.run_forever()
     except KeyboardInterrupt:
         logging.info("❌ Service Stopped. Bye 👋")
