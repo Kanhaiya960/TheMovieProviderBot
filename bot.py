@@ -36,6 +36,9 @@ asyncio.set_event_loop(loop)
 async def Lazy_start():
     print('\n✅ Initializing The Movie Provider Bot...')
     
+    # Debugging: BOT_TOKEN सही से लोड हो रहा है या नहीं, इसे चेक करें
+    print(f"🔹 Debug: BOT_TOKEN = {BOT_TOKEN}")
+
     # Start the bot
     await LazyPrincessBot.start()
     bot_info = await LazyPrincessBot.get_me()
