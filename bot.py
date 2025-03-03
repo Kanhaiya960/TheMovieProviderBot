@@ -10,7 +10,11 @@ from datetime import date, datetime
 from aiohttp import web  
 from pyrogram import Client, __version__, idle  
 from pyrogram.raw.all import layer  
-from pyrogram.storage import SQLiteStorage  
+from pyrogram import Client
+
+app = Client("my_account")  # Session store ke liye SQLiteStorage ki zaroorat nahi
+app.run()
+  
 from database.ia_filterdb import Media  
 from database.users_chats_db import db  
 from info import *  
