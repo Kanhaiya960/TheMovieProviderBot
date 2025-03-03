@@ -10,11 +10,7 @@ from datetime import date, datetime
 from aiohttp import web  
 from pyrogram import Client, __version__, idle  
 from pyrogram.raw.all import layer  
-from pyrogram import Client
 
-app = Client("my_account")  # Session store ke liye SQLiteStorage ki zaroorat nahi
-app.run()
-  
 from database.ia_filterdb import Media  
 from database.users_chats_db import db  
 from info import *  
@@ -48,15 +44,6 @@ LazyPrincessBot.start()
 loop = asyncio.new_event_loop()  
 asyncio.set_event_loop(loop)  
 
-# 🔹 SQLite Database Reset Function  
-async def reset_sqlite_db():  
-    try:  
-        storage = SQLiteStorage("LazyPrincessBot.session")  # Change this to your actual session name  
-        await storage.reset()  
-        logging.info("✅ SQLite Database has been reset successfully!")  
-    except Exception as e:  
-        logging.error(f"❌ Error resetting SQLite Database: {e}")  
-
 # 🔹 Main Bot Start Function  
 async def Lazy_start():  
     print('\n')  
@@ -64,9 +51,6 @@ async def Lazy_start():
     bot_info = await LazyPrincessBot.get_me()  
     LazyPrincessBot.username = bot_info.username  
     await initialize_clients()  
-
-    # 🔹 Reset SQLite Database before starting (Optional)  
-    await reset_sqlite_db()  
 
     # 🔹 Plugin Import  
     for name in files:  
