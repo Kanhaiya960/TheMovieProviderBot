@@ -1,6 +1,10 @@
-<p align="center">
-  <img src="https://telegra.ph/file/6fa70325813885809a64a.jpg" alt="The Movie Provider Bot Logo">
-</p>
+<img src="https://i.ibb.co/HfC1Fj9z/photo-2025-03-18-10-59-37-7483102647734501392.jpg" alt="Stark-Filter-Bot Logo">
+<img src="https://i.ibb.co/C3SqRMbs/photo-2025-03-18-10-59-41-7483102673504305176.jpg" alt="Stark-Filter-Bot Logo">
+<img src="https://i.ibb.co/5gX9MNSf/photo-2025-03-18-10-59-49-7483102703569076244.jpg" alt="Stark-Filter-Bot Logo">
+<img src="https://i.ibb.co/gZkVSDfY/photo-2025-03-18-10-59-50-7483102729338880016.jpg" alt="Stark-Filter-Bot Logo">
+<img src="https://i.ibb.co/GQ22zx67/photo-2025-03-18-10-59-50-7483102755108683792.jpg" alt="Stark-Filter-Bot Logo">
+<img src="https://i.ibb.co/rGQPJvMb/photo-2025-03-18-11-02-01-7483103184605413384.jpg" alt="Stark-Filter-Bot Logo">
+
 <h1 align="center">
   <a href="https://telegram.me/TheMovieProviderBot">THE MOVIE PROVIDER BOT</a>
 </h1>
